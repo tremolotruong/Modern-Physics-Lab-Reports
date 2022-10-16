@@ -1,0 +1,380 @@
+%=====================================================
+%====== If you are new to LaTeX, this website ========
+%======     will be your new best friend:     ========
+%======   http://en.wikibooks.org/wiki/LaTeX  ========
+%======   Template created by Jonathan Blair  ========
+%=====================================================
+
+
+
+%=====================================================
+%============ Controls ===============================
+%=====================================================
+
+%\documentclass[12pt,letterpaper,onecolumn]{article}
+%\documentclass[11pt,letterpaper,onecolumn]{article}
+\documentclass[10pt,letterpaper,onecolumn]{article}
+%\documentclass[12pt,letterpaper,twocolumn]{article}
+%\documentclass[11pt,letterpaper,twocolumn]{article}
+%\documentclass[10pt,letterpaper,twocolumn]{article}
+
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{graphicx} %more modern version of graphics
+%\graphicspath{{path-to-folder-containing-necessary-graphics}{other folder as necessary}}
+\usepackage{comment}
+\usepackage{cite}
+\usepackage{appendix}
+\usepackage{amssymb}
+
+%=====================================================
+%============ \begin{document} =======================
+%=====================================================
+
+\begin{document}
+
+%=====================================================
+%============ Title ==================================https://www.overleaf.com/project/632ce06741db87598a2fa5c1
+%=====================================================
+
+%\title{}
+\title{\Large\bf Observation of the Half-Life of the Metastable State of Barium-137}
+
+%=====================================================
+%============ Author =================================
+%======= ==============================================
+\author{
+ Mike Truong, Julian Gawel \\*
+  \\*
+ PHY 353L Modern Physics Laboratory \\*
+ Department of Physics \\*
+ The University of Texas at Austin \\*
+ Austin, TX 78712, USA
+}
+\date{October 6, 2022}
+
+%\address{The University of Texas, Austin, Texas, 78712}
+
+\maketitle
+
+%=====================================================
+%============ Abstract ===============================
+%=====================================================
+
+\begin{abstract}
+
+
+This experiment utilizes a Scintillation-Coupled Photomultiplier tube (PMT) and a Single-Channel Analyzer (SCA) to detect gamma radiation produced by decaying $^{137m}$Ba, an unstable decay product of $^{137}$Cs. Using the SCA and calibrating the window levels ($\Delta E$) to the approximate beginning and end of the energy levels of the $^{137m}$Ba gamma rays ($0.662\ MeV$), we eluted a solution containing only $^{137m}$Ba and utilized our setup which outputs data into a digital-to-analog converter board (DAC) connected to LabView software on Windows to record the decaying barium's half-life. LabView produced a visualization of a plot of the live recording of the number of decay particle counts on the y-axis against time on the x-axis (which we set to one-second sampling intervals), and at the same time LabView also produced a {\it tab-separated-values} (TSV) file for further manipulation and analysis. After recording the baseline noise level of our experimental environment to be around $20\ counts/sec$, we placed our metastable barium solution sample into the apparatus and started the computer recording, and observed the recorded data until a few seconds after the signal reaches approximately the baseline noise level recorded before. After that, using a least-squares fit to an exponential decay curve, we were able to fit all the recorded data into an exponential decay function and derived the half-life of $^{137m}$Ba to be $2.565\pm 0.018\ min$, which is a $0.5\%$ error from the International Atomic Energy Agency's precise measurements \cite{IAEA}, falling within our calculated bounds of uncertainty.
+
+
+\end{abstract}
+
+%=====================================================
+%============ Body of the article ====================
+%=====================================================
+
+%=====================================================
+%============ Section ================================
+
+\section{Introduction}
+
+\subsection{Physics Motivation}
+\begin{comment}
+Broad physics motivation should be discussed briefly but
+meaningfully. Basic phenomena should be
+explained (or referred to) and
+prediction for experimental results clearly
+stated. Here and throughout the report appropriate
+references should be included~\cite{book, article}.
+\end{comment}
+
+$^{137}$Cs is a radioactive isotope with an approximate half-life of about 32 years, during which it undergoes beta decay into $^{137}$Ba. Of these decays, approximately $5.4\%$ would $\beta$-decay directly to the ground state of barium, whereas around $94.6\%$ would $\beta$-decay to become $^{137m}$Ba, a metastable excited state that rapidly decays into the ground state within a relatively short amount of time. Because of its monoenergetic $\gamma$-decay function, $^{137}$Ba is most commonly used for carrying out studies of the Compton effect and is also widely used for energy calibration of equipment. \cite{cassy} 
+
+\subsection{Historical context}
+
+
+$^{137}$Cs, or radiocesium, is a known radioactive isotope and is the common fallout component of nuclear explosions from radioactive test sites and nuclear power plants, and represents a dangerous long-term effect onto life on Earth, and especially on humans and cognitive development \cite{belles}. A study conducted by Belles and their team at the Laboratory of Toxicology and Environmental Health for Rovira i Virgili University estimated that prolonged exposure of the human brain to high levels of $^{137}$Cs at a young age would severely the brain's cognitive function, and exposure at a later age would have a great impact on the cerebrovascular system \cite{belles}. The Chernobyl Power Plant disaster on April 26, 1986 in Soviet Ukraine was the most well-known incident in human history that humans and the Earth were exposed to such a large amount of radioactivity, specifically radiocesium. Yet, to this day its health effects on the general surrounding public especially in Ukraine, Russia, and Belarus are still a subject of active research and conflicting debate, but it is undeniable that the radioactive isotope is constantly producing short-term irreversible consequences to the people and environment.
+
+
+
+
+ \begin{center}
+ \includegraphics*[width=3.5in]{HalfLife_LevelDiagram.png}
+ \captionof{figure}{The decay chain of $^{137}$Cs. \cite{353}}
+ \label{fig:cshalflife}
+ \end{center}
+
+
+%=====================================================
+%============ Section ================================
+
+\section{Theoretical background}
+
+The main goal of our experiment is to measure the decay of a bottle-cap-sized sample of $^{137m}$Ba diluted with distilled water. If the decay constant is given by $\lambda$, the decay pattern for the number of particles N after some certain time $t$ would be modeled by:
+\begin{center}
+    $dN = -\lambda N dt$
+\end{center}
+Assuming the sample starts off with $N_{i}$ particles, the number of particles after a certain time $t$ can be derived with:
+\begin{center}
+    $N(t) = N_{i}e^{-\lambda t}$
+\end{center}
+Thus, the time it takes for the sample to reach half of its particle count value is calculated by setting the ratio of the particle count after that amount of time over the original particle count equal to $\frac{1}{2}$:
+\begin{center}
+    $\frac{N(t)}{N_0} = e^{\lambda t_{1/2}} = 1/2$ \\
+    $\rightarrow \lambda t_{1/2} = ln2$ \\
+    $\rightarrow t_{1/2} = \frac{ln2}{\lambda}$
+\end{center}
+
+$^{137m}$Ba and $^{137}$Ba are the $\beta$-decay products of $^{137}$Cs, whose half-life is about 32 years, and thus makes for a very stable radioactive sample for us to have ample time to set up and calibrate all parts of our equipment before attempting to observe the more metastable state of $^{137}$Ba, which has an estimated half-life of about 2.5 minutes as it $\gamma$-decays away \cite{cassy}. \\
+The nature and limited capabilities of our analog devices still haven't enabled us to directly detect $\gamma$-rays yet, and thus we have to resort to other indirect methods to observe them, such as the use of spark chambers and scintillation detectors, of which a photomultiplier tube is a common example. Within the close vicinity of $\gamma$-particles decaying and dispersing from any given sample of $^{137m}$Ba is when the photomultiplier tube comes in handy. The scintillator-coupled photomultiplier tube will act as a detection device as a whole, which will allow for the $\gamma$-particles decaying away to enter, be absorbed by scintillation crystal material layers within the scintillator portion of the device, and those crystalized material particles would in turn emit photons, the majority of which will strike a set of electrodes to produce multiple photoelectrons that can be picked up by our electronic analog detectors. The first electrode the $\gamma$-particles would strike is a photosensitive {\it cathode}, which would produce the first set of electrons as the decay particles strike it. The set of electrons would go on to strike a set of different {\it dynodes}, with each dynode struck by an electron causing the emission of multiple other electrons, and so on, hence the name {\bf multiplier}. Each dynode would be factory-calibrated to a higher positive electric potential than the previous one so that it is able to attract the electrons produced by the previous ones. An anode with the highest electric potential is placed right after the very final dynode to pick up the electrons emitted at the final stage, and converts such detections into digital signals that can be converted using a digital-to-analog Data Acquisition sytem (DAQ) board and visualized using GUI-based applications such as LabView \cite{pmt}. Refer to diagram below for a visual representation of the functionality and complete process of how a photomultiplier tube works:
+
+
+ \begin{center}
+ \includegraphics*[width=4in]{pmt-new.png}
+ \captionof{figure}{Cross-Section of a Scintillator-Coupled Photomultiplier Tube. \cite{pmt-fig}}
+ \label{fig:pmt}
+ \end{center}
+
+
+
+
+%=====================================================
+%============ Section ================================
+
+\section{Experimental setup}
+
+
+\subsection{Apparatus}
+\begin{comment}
+Ideas behind the particular technique should be briefly
+discussed. Enclose references. Sketches, pictures, and
+suitable schematics should be included and explained
+concisely. All major components of the system should be
+mentioned and their role clearly motivated. This section
+is not simply a list of components and it is not an
+instruction manual.
+\end{comment}
+
+For this observation, we will be utilizing a PMT connected to a high voltage power supply, which would detect radioactive $\gamma$-particles actively decaying from our samples. \\
+\\
+The output signal from the PMT detector is then passed through a pre-amplifier that converts the signal of electron influx per unit time (current) into electric work per electron (voltage), with accuracy of up to the reciprocal of the open loop gain, in order for us to be able to manipulate later on in the experimental process \cite{preamp}. Then, the pre-amplifier output is passed into an amplifier for us to able to gain the signal to a more readable level later on. After gain, the amplifier output is split using a BNC tee, with one output being plugged into channel 1 of the oscilloscope for another reliable monitoring medium, and the other going through a single-channel analyzer (SCA) that acts as a band-pass filter that can single out certain energy ranges, that we would utilize to single out the $^{137m}$Ba photopeak and remove the lower energy levels that contain signal from Compton scattering and the X-ray photopeak. In terms of the figure below, we would hope to be able to isolate the $\gamma$-photopeak, the rightmost peak of the entire gamma spectrum. \\
+
+ \begin{center}
+ \includegraphics*[width=4in]{Cs137 Spectrum.png}
+ \captionof{figure}{Gamma Spectrum of $^{137}$Cs. \cite{spectrum}}
+ \label{fig:spectrum}
+ \end{center}
+
+
+After successfully singling out the photopeak from adjusting the SCA, the signal is then finally passed onto another BNC tee, with one output going into channel 2 of the oscilloscope, and the other going into a DAQ deck to convert the signal into computer-readable analog signals, and the deck would be connected to the laboratory desktop computer running LabView to count the number of decays per time frame, which in our case was set to per second when measuring the sample decays and per 0.1 seconds when measuring the baseline noise level.
+
+
+%=====================================================
+%============ Importing pictures  ====================
+%=====================================================
+
+
+\subsection{Data Collection}
+
+After setting up the apparatus as described above, we first took data from the PMT with no source present in order to determine a baseline noise level for the setup used. Our noise level collection was set to poll counts every 0.1 seconds so we could obtain the most and most accurate data about the noise level all throughout. To test if our setup configuration was functional, we initially placed a $^{137}$Cs button-sized sample decay source and configured the SCA window properly to the approximate $\gamma$ photopeak. The way we achieved that was to use the oscilloscope to look at the constantly monitored signal and configure the SCA window to the points where the signal was the most stable and presented the most minimal fluctuations and irregularities. We then observed to see if the decay signal was properly shown in LabView, and removed the sample after to record the baseline noise floor. We used the noise-only portion of that trial's recording and fit it to a flat linear model for better observation. \\
+
+ \begin{center}
+ \includegraphics*[width=4in]{Noise.png}
+ \captionof{figure}{Baseline Level of Noise among experimental environment. }
+ \label{fig:noise}
+ \end{center}
+
+Our collected data indicates that our baseline noise level is around $ 2.5$ counts per 0.1 seconds, or 20 $\pm 1.41$ counts per second, and this would factor into the approximate time frame when we should end our recording of the sample of $^{137m}$Ba. \\
+
+After that data was collected, we then utilized the $^{137}$Cs sample in order to properly calibrate our SCA window by isolating the higher energy gamma rays released by $^{137m}$Ba decay from the set of all gammas detected. The count interval is now adjusted in LabView to 1 count every second, since decay counts expected are high and increasing the polling interval produces more averaged counts throughout the entire duration of the decay recording session, and minimizes the impact of noise onto the data between two recorded data points. The amplifier output to the oscilloscope is set to trigger against channel 1, and we keep the SCA window at the point where we could observe stable signals on both channels with minimal fluctuations and abnormalities, as shown below:
+
+ \begin{center}
+ \includegraphics*[width=4in]{Oscillo.jpg}
+ \captionof{figure}{Oscilloscope Observations for SCA window refinement.}
+ \label{fig:osci}
+ \end{center}
+
+
+This $\Delta E$ SCA window is to be kept constant from the point of the configuration of it for measuring the noise, since we were measuring the noise levels within that measured window. A sample of $^{137m}$Ba is then produced using a $^{137}$Cs source and an eluting solution that runs through and "milks" the source of $^{137}$Cs. This diluted radioactive $^{137m}$Ba solution is then entered into our apparatus and left until activity levels reach the baseline noise level of $25 \pm 5.00\ counts/sec$ determined earlier. While collecting data, we utilized the LabView software to visualize the progress of radioactive decay, and thus observed raw decay counts as well as uncertainties is recorded and plotted to show the count of decays (y-axis) against time (x-axis) with each data point possessing an uncertainty of $\sqrt{N}$. The results are as shown in the plotted figure below:
+
+
+ \begin{center}
+ \includegraphics*[width=4in]{Plot with Error Bar.png}
+ \captionof{figure}{$^{137m}$Ba Decay Counts as a Function of Time with Error Bars.}
+ \label{fig:Data} 
+ \end{center}
+
+\subsection{Data Analysis}
+\begin{comment}
+
+
+Describe calculations of the final results.
+Thoroughly address error analysis and discussion of measurement
+uncertainties. Remember: NO EXPERIMENTAL RESULT CAN BE QUOTED
+WITHOUT AN ERROR BAR! Do not forget about random or systematic
+uncertainties. Be sure to propagate errors correctly!
+Include a demonstrative graph when possible.
+%See Figure~\ref{fig:results}.
+
+
+Make final assessment and interpretation after that.
+Discuss apparatus problems if any. Suggestions for
+lab setup or approach improvements are welcome!
+\end{comment}
+
+
+Through observations of our data, we notice that the trend of the overall data points does resemble an inverse exponential function, starting from our initial observation of $\approxeq 300 \pm 17.32\ counts/sec$, and decaying to $\approxeq 25 \pm 5.00\ counts/sec$, aligning with the noise levels we initially recorded for our setup without any observing decay samples. \\
+Our recorded data was then fit into an exponential decay curve using the least squares method and overlayed on top of our recorded data plotted previously.
+
+
+%=====================================================
+%============ Importing pictures  ====================
+%=====================================================
+
+ \begin{center}
+ \includegraphics*[width=4in]{Plot + Fit.png}
+ \captionof{figure}{$^{137m}$Ba Counts as a Function of Time Fitted into Exponential Decay Function.}
+ \label{fig:Data and Fit}
+ \end{center}
+
+The data was then fit to an exponential decay function $Ae^{-\lambda t}+b$, with the resulting decay constant of our fit equalling $0.0045 \pm 0.00003\ sec^{-1}$. With this, we calculated the half-life of $^{137m}$Ba to be $153.9 \pm 1.1\ sec$, or $2.565 \pm 0.018\ min$. Given that $^{137m}$Ba is a short-lived radionuclide, this result is consistent with expectations for its half-life. The percent error calculated from the covariance matrix is $0.67\%$ for our decay constant and $0.69\%$ for the half-life, which is an extremely low error indicating that the results produced and the decay constant derived is reliable and, if replicated, likely consistent. for There are multiple sources of error in this setup, principal among them being our SCA window settings. If our SCA band-pass filter window ($\Delta E$) is set too wide, we are also counting most (or even all) of the energy sources besides the gamma photopeak of $^{137m}$Ba which include the x-ray photopeak and Compton scattering energies, etc. On the other hand, if our band-pass filter is too narrow and the two band-pass margins are set too close, we might run the risk of not being able to gather the entirety of the gamma decay signals produced by our source, and would be undercounting the true decay.
+
+The records and inputs of our data entirely depend on the counts per second $N(t)$ of each observed decay value, and thus the uncertainty values of the half-life value we derived depend solely on the counts per second statistical error of each decay count sampling time frame of $\sqrt{N}$, and it is represented in the plots above's error bars underlayed behind each count scatterpoint.
+
+%===========================================================================
+%=========================== Table 1 =======================================
+%===========================================================================
+%
+% Note: the position of the table does not always depend on its position here. See
+% http://en.wikibooks.org/wiki/LaTeX/Tables
+% for details.
+%
+
+\begin {table}[h]
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c | c }
+\hline\hline
+ & $\lambda$ ($s^{-1}$) & $A$ & $b$ \\
+\hline
+Fit	& $0.0045 \pm 0.00003$ & $261.6 \pm 1.0$ & $20.96 \pm 0.26$ \\
+
+\hline% \hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:events}
+Coefficient Fit Values
+ }
+\end {table}
+
+
+%=====================================================
+%============ Section ================================
+%=====================================================
+
+\section{Results}
+
+
+Through collecting and fitting the data to an exponential decay curve we were able to determine a theoretical half-life of $^{137m}$Ba at $2.565\pm 0.018\ min$. By comparison with available IAEA data, which lists the half-life of this radionuclide at $2.552\ min$ \cite{IAEA}. With only a $0.5\%$ error our results align closely with the known data and are within the error bounds of our model, showing that this setup is quite effective at determining the half-life given correct calibration. The energy of gammas produced is a known quantity and thus, with assistance from the oscilloscope's ability to visualize the data in real-time, it is easy to see when our window is centered around the incorrect signal range and needs to be adjusted. Ensuring that the sampling rate of LabView data taken through the DAC board is important in reducing the impact of noise and abnormal data cases among our calculations. Taking counts too frequently increases the impact of noise and abnormal cases as it proves to have a heavier weight due to the decreased number of decays occurring in a smaller time frame. \\
+
+We can also attempt to linearize the curve by plotting the natural logarithm of the count numbers (y-axis) against time (x-axis). This linear graph produced by this new $\ln$ fitting has a slope of $m=-\frac{1}{\lambda}$ and will help us derive $\lambda$ as another method of verification of the decay constant results we obtained before.
+
+ \begin{center}
+ \includegraphics*[width=4in]{Plot + Fit + Linearization.png}
+ \captionof{figure}{Plot of Decay Counts Against Time with Linearization of Count values and Linearization Fit Data.}
+ \label{fig:linear}
+ \end{center}
+
+The slope obtained by this fit was $m \approxeq 0.0045$, which meant that the decay constant that can be calculated from this is $\lambda = -\frac{1}{m} \approxeq 222.037\ sec$, which is $\approxeq 3.701\ min$, an entire $44.27\%$ difference from the decay constant derived from the regular previous exponential decay curve fit, but I would be more inclined to trust and finalize the results produced by the exponential decay curve fit.
+
+%===========================
+%============ Section ================================
+
+\section{Summary and conclusions}
+\begin{comment}
+Summarize briefly the results of the experiment.
+Acknowledge (i.e., thank for) contributions or help
+of your partner(s) and or
+others (TA, machine shop, software used, ...).
+\end{comment}
+
+Through the use of a setup consisting of a photomultiplier tube and a single-channel-analyzer-window module (along with secondary audio signal conversion modules such as preamplifier, amplifier and digital-to-analog converter board), we were able to determine the half-life of $^{137m}$Ba with an error of 0.5\% when compared with the available precisely-computed IAEA data. Although there is uncertainty due to the manual setup of the SCA windows, this experiment can produce a precise result, and is reproducible with other samples of $^{137m}$Ba and $^{137}$Cs along with a multitude of other radionuclides, so long as they are $\gamma$-radiation sources. In future reproductions, alternate radiation sources could be used in order to identify an unknown source from its half-life, no matter how long or short-lived it is, and stable radionuclides can also be used in the process of calibrating and fine-tuning hardware for radiation-based experiments and monitoring setups. \\
+As this experiment is replicated in the future for research and calibration purposes, we would develop a plotting and fitting model to filter out the baseline noise level from our recorded data of the decaying barium sample, so that recordings and fits are even more accurate and its effects are minimized. The experiment would also be even more accurate if the apparatus is stationed further from much unnecessary electronic equipment and the radioactive material storage space, so that our recorded data is as clean and untampered as it can be.
+
+\pagebreak
+%=====================================================
+%============ Bibliography  ==========================
+%=====================================================
+
+\begin{thebibliography}{9}
+
+\bibitem{IAEA}
+International Atomic Energy Agency, {\bf Table of Radioactive Isotopes}
+
+\bibitem{cassy}
+{\bf Cassy Lab 2}, Sec. Cesium-137.
+
+\bibitem{353}
+Sitz, {\bf PHY 353L Lab Website for the University of Texas at Austin}, Sec. Half-Life of $^{137}$Ba.
+
+\bibitem{belles}
+Bellés\_Heredia\_Llovet\_Linares, 2015, {\bf Brain development behavioural effects after internal 137 cesium exposure. GD12 vs postnatal}, Vol. 47.
+
+\bibitem{pmt}
+Matsusada Precision, 2022, {\bf What is a photomultiplier tube?}
+
+\bibitem{preamp}
+Hamamatsu, {\bf Photomultiplier Tubes - Basics and Applications, Third Edition}, Chap. 5.3.3, Sec. 2.
+
+\bibitem{pmt-fig}
+Regis, 2011, {\bf Fast Timing with LaBr 3 (Ce) Scintillators and the Mirror Symmetric Centroid Difference Method}, Figure 2.
+
+\bibitem{spectrum}
+Ukaegbu, Ikechukwu \& Gamage, Kelum, 2018, {\bf A Model for Remote Depth Estimation of Buried Radioactive Wastes Using CdZnTe Detector. Sensors. 18. 1612. 10.3390/s18051612}, Figure 4.
+
+%\bibitem{article}	
+%R.Dalitz, Proc. Roy. Soc. (London) {\bf A64}, 667 (1951)
+
+\end{thebibliography}
+
+%=====================================================
+%============ End ====================================
+%=====================================================
+\appendixpage
+\section{Error Calculation}
+\begin{table}[h]
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$9.6*10^{-10}$ & $3.1*10^{-5}$\\
+\hline
+A	& $1.07$ & $1.03$ \\
+\hline
+b & $0.07$ & $0.26$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:events}
+Table of Error Values
+ }
+
+\end{table}
+
+
+
+\end{document}
+
+%=====================================================
+%============ End ====================================
+%=====================================================
