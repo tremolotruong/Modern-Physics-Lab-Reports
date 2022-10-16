@@ -1,0 +1,524 @@
+%=====================================================
+%====== If you are new to LaTeX, this website ========
+%======     will be your new best friend:     ========
+%======   http://en.wikibooks.org/wiki/LaTeX  ========
+%======   Template created by Jonathan Blair  ========
+%=====================================================
+
+
+
+%=====================================================
+%============ Controls ===============================
+%=====================================================
+
+%\documentclass[12pt,letterpaper,onecolumn]{article}
+%\documentclass[11pt,letterpaper,onecolumn]{article}
+\documentclass[10pt,letterpaper,onecolumn]{article}
+%\documentclass[12pt,letterpaper,twocolumn]{article}
+%\documentclass[11pt,letterpaper,twocolumn]{article}
+%\documentclass[10pt,letterpaper,twocolumn]{article}
+
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{graphicx} %more modern version of graphics
+%\graphicspath{{path-to-folder-containing-necessary-graphics}{other folder as necessary}}
+\usepackage{comment}
+\usepackage{cite}
+\usepackage{appendix}
+\usepackage{amssymb}
+\usepackage{gensymb}
+
+%=====================================================
+%============ \begin{document} =======================
+%=====================================================
+
+\begin{document}
+
+%=====================================================
+%============ Title ==================================https://www.overleaf.com/project/632ce06741db87598a2fa5c1
+%=====================================================
+
+%\title{}
+\title{\Large\bf Observation of Electric Current Behavior of NPN Bijunction Transistors}
+
+%=====================================================
+%============ Author =================================
+%======= ==============================================
+\author{
+ Mike Truong, Julian Gawel \\*
+  \\*
+ PHY 353L Modern Physics Laboratory \\*
+ Department of Physics \\*
+ The University of Texas at Austin \\*
+ Austin, TX 78712, USA
+}
+\date{October 11, 2022}
+
+%\address{The University of Texas, Austin, Texas, 78712}
+
+\maketitle
+
+%=====================================================
+%============ Abstract ===============================
+%=====================================================
+
+\begin{abstract}
+
+
+This experiment utilizes a computer-variable circuit setup with a smaller controllable voltage and a greater main voltage connected to the emitter-base terminals and emitter-collector terminals of a bipolar junction NPN transistor, and by increasing the voltage that is passed through the emitter-base junction, we were able to determine the saturation current between the base-emitter junction of our transistor at every temperature increment, and by measuring the current behavior through 7 temperature increments with 3 trial recordings each increment of the main transistor current and fitting the data to the Ebers-Moll equation, we were able to determine Boltzmann's constant to be approximately $1.580\cdot 10^{-23}$ $\pm$ $1.825\cdot 10^{-25}\ (J/K)$, a $14.447\%$ error from the commonly-used value documented by Brittanica of $1.380649\cdot 10^{-23}\ (J/K)$ \cite{k}. Through observing current behavior of the transistor at those higher and lower temperatures as well as comparisons between them and room temperature, we were also able to determine that temperature has a directly proportional relationship with the base-emitter voltage and thus the {\it threshold} voltage as well.
+
+
+\end{abstract}
+
+%=====================================================
+%============ Body of the article ====================
+%=====================================================
+
+%=====================================================
+%============ Section ================================
+
+\section{Introduction}
+
+\subsection{Physics Motivation}
+
+The transistor is used in most everyday modern computers and the majority of electronic hardware. Because of its characteristics of being able to increase the current of a circuit after only requiring a small base-emitter voltage, it can act as a durable amplifier or electric switch for modern electronics. In addition to that, because of the way transistors are manufactured (one region being P-doped and two regions being N-doped or vice versa), they can also act as reliable diodes that obstruct all or most of a reverse current, since the electrons can only flow from an N-doped region to a P-doped region.
+
+\subsection{Historical context}
+
+The invention of the transistor was credited to American physicist William Shockley, along with his colleagues John Bardeen and Walter Brattain, in 1947, even though the concept of a field-effect transistor was proposed by Austro-Hungarian physicist Julius Edgar Lilienfield way before in 1926. Shockley was put in charge of a semiconductor research group at Bell Labs (owned by AT\&T), as AT\&T was interested in creating an amplifier out of semiconductors to aid with their longer-distance telephone communications. Even though Shockley was the leader of the research group, the first invention of the point-contact transistor, however, was not credited to him but rather only Bardeen and Brattain, since Shockley did not contribute much during the summer and fall of the invention. The first transistor, whose patent was filed in early January 1948, utilized germanium as its semiconductor material. Upset at not being included in the discovery and development of the revolutionary invention, Shockley locked himself in his house and invented another transistor that was more reliable in mass production, and filed his own patent nine days after the other two filed theirs. The conflict between the two invention and inventor groups led to Bell Labs' unveiling of the semiconductor including a photo of all three of the scientists conducting an experiment together, and crediting all three of them for the invention, since Bardeen and Brattain theoretically built the first transistor but Shockley developed a much more reliable and refined version of it, and thus all three of them were jointly awarded the Nobel Prize in Physics in 1956 for their combined semiconductor research \cite{shockley}. \\
+Within a relatively similar period of time, German scientists Herbert Matare and Heinrich Welker had researched and independently invented their own transistors after having had research experience with crystal rectifiers made from silicon and germanium at the Telefunken laboratories in Berlin and Silesia. After WWII ended, they were hired by the Comagnie des Freins et Signaux Westinghouse to research solid-state rectifiers from the very same materials they've had plenty of experience with. In 1947, Matare conducted research on a peculiar phenomenon in which if two point contacts were placed close enough to each other, one's potential can influence another's current flow, exactly the same phenomenon that Bardeen and Brattain had observed in germanium in their completely unrelated research. In 1948, Matare and Welker were able to achieve constant, reproducible amplification results from their test products using higher-purity samples of germanium produced by Welker. A month after their discoveries, the scientists unexpectedly found out that Bell Labs in the US had also invented an amplifier using similar semiconductor materials, and quickly rushed to file their own patent for the invention under the name {\it transitron} to differentiate themselves from the American invention, and sped them up into production \cite{matare}. While the American {\it transitors} were being used by AT\&T to amplify American telephone communication systems, the French {\it transitrons} were being used as amplifiers for French phone systems. It was a truly surprising case of independent parallel discoveries and inventions of the same revolutionary and innovative technology.
+
+
+
+
+
+%=====================================================
+%============ Section ================================
+
+\section{Theoretical background}
+
+Our experimental transistor attached onto our metal base is a bipolar junction - three terminal NPN semiconductor, configured from left-to-right as such - base, collector, emitter. The emitter region (N-type semiconductor) is heavily N-doped, while the base region (P-type semiconductor) is lightly P-doped and the collector (N-type semiconductor) is moderately N-doped \cite{exp11}. Interactions between the P-N junctions of the transistor setup is of our particular interest, and we will explore further into how they work and what they all mean.
+
+A typical semiconductor material usually consists of mediums of the material silicon. A silicon atom contains 4 electrons at its outermost shell, and thus when it bonds to other silicon atoms will form covalent bonds between them. These bonds hold the electrons within these shells in place and render them unable to move. And thus, impurities are introduced to this silicon-filled medium, typically by adding other dopant materials such as phosphorus, aluminum, germanium, arsenic, etc. These dopants either introduce atoms with more electrons at the outer shell that can freely move around creating negatively charged regions, or introduce atoms with fewer electrons that other free-moving electrons can fill in the gaps creating positively charged regions. Those mediums who are negatively charged (through doping with phosphorus, arsenic, etc.) are called N-type regions, and those who are positively charged (through doping with boron, aluminum, etc.) are called P-type regions. When placed right next to each other (such as in prebuilt semiconductors), the extra electrons from the N-type region would have the tendency to want to flow towards the missing vacant spots for electrons on the outer shell of the P-type region. A portion of the area in between these two regions will be neutral in charge due to all the electrons flowing through and filling in those vacant spots closest to them first, thus creating a {\it depletion region}. In an NPN transistor, we have the emitter and collector regions being N-type and the base being P-type. When the emitter and the base terminals of the transistors are connected to a voltage source with emitter connected to negative and base to positive, the emitter N-type region is going to slowly be more negatively charged and the base region more positively charged, and thus the {\it depletion region} grows smaller and smaller. When a main current is connected between the emitter and the collector terminals with the emitter connected to negative and collector to positive, as the depletion region between the emitter and the base gets smaller, electrons tend to move faster to the base region. And due to the design of the base region being so small, the increasing flow of electrons can just be "boosted" by the base region and be carried straight into the collector region, who is being connected to the positive end of the power source and will be transported directly back to the positive end of the source. This is why, hypothetically, there should be an initial small current between the emitter and collector terminals, and after a while of passing an increasing voltage between the emitter and base terminals, we should be able to see the former current "jump" to a much greater current \cite{ben}. Refer to this figure below for a cross-section diagram of the functionality of an NPN BJT transistor:
+
+ \begin{center}
+ \includegraphics*[width=4in]{diagram.jpg}
+ \captionof{figure}{Diagram of an NPN Transistor \cite{diagram}.}
+ \label{fig:npn}
+ \end{center}
+
+ The formula for the main current through such an NPN BJT transistor is dependent on the voltage applied to the base-emitter junction, the temperature of the transistor, and the saturation current between the base-emitter junction, and is represented by the Ebers-Moll equation as follows:\\
+ \begin{center}
+    $I=I_S(e^{\frac{eV_{be}}{kT}}-1)$
+\end{center}
+
+Once we are able to obtain the saturation current between the base-emitter junction, as we modify the temperature through increments and increase the $V_{eb}$ voltage constantly through time and measuring the resulting main current, we would be able to derive an average estimation of Boltzmann's constant $k$ (or $k_b$).
+
+%=====================================================
+%============ Section ================================
+
+\section{Experimental setup}
+
+\subsection{Apparatus}
+
+Our experimental setup consists of two circuits connected to an NPN bijunction transistor, with the base and emitter circuits being connected to the voltage input and output terminals with variable voltage of the digital-to-analog data acquisition board (DAQ), and the emitter and collector are also connected to another set of voltage input and output terminals of another main circuit. The emitter terminal end is going to be connected to both negative terminals of both circuits of the DAQ, the base terminal end is connected to the positive end of the smaller increasing voltage, and the collector terminal is connected to the postive end of the larger circuit. Both "mini-circuits" are monitored through the DAQ using LabView, and the emitter terminal is also connected in series to a picoammeter to monitor the main current behavior, and this picoammeter's analog outputs directly to our computer software. Refer to the diagram below for a representation of the two power sources and the relevant circuit properly connected:
+
+ \begin{center}
+ \includegraphics*[width=4in]{transistor.png}
+ \captionof{figure}{Diagram of an NPN Transistor circuit \cite{circuit}.}
+ \label{fig:circuit}
+ \end{center}
+
+The NPN BJT transistor is screwed onto a metal plate with a heat generator attached to the bottom of it, and two temperature probe ends attached to and probing the temperature of the plate. For the first portion of the experiment, we will be keeping the temperature of the transistor-attached plate constant, that is, within room temperature of our testing environment with minor fluctuations reflected within our uncertainty margins. The second portion of the experiment would involve plugging our heater into a low-voltage power supply so we can increase the temperature of the plate/transistor in increments above room temperature. The third and final portion of our testing involves letting the transistor rest until it reaches room temperature and cooling it down by pouring liquid nitrogen in increments below room temperature. Throughout every increment and every time frame, respective currents, voltages, and temperatures would be kept in constant measurement and visualized and documented through LabView.
+
+
+
+
+%=====================================================
+%============ Importing pictures  ====================
+%=====================================================
+
+
+\subsection{Data Collection}
+
+Our first objective was to measure the saturation current between the base-emitter junction of our operating NPN BJT transistor. We achieved that by connecting the emitter-base terminals in reverse, that is, the emitter connected to the positive end of the DAQ power supply, and the base connected to the negative end. As our voltage increased linearly from $0\ V$ to $5\ V$, we recorded the saturation current that was able to make it through the diode junction, plotted the data, and fitted it into a linear regression line. We will consider the mean of this regression fit value to be our working saturation current. These measurements were done at room temperature of around $297.18\ K$ and thus, colors indicating temperature for all scatterpoints would look almost indistinguishable.
+
+ \begin{center}
+ \includegraphics*[width=4in]{sat.png}
+ \captionof{figure}{Saturation Current of Base-Emitter.}
+ \label{fig:sat}
+ \end{center}
+
+Our fit was a linear fit with the maximum value being $2783.003\ nA$, and the minimum value being $2818.083\ nA$, and thus our mean of $2800.543\ nA$ would be our average room temperature saturation current as an exemplary fit. We will be using the relevant saturation current of all future fits for all temperature increments. \\
+
+After obtaining the saturation current, we started by connecting our setup properly according to our aforementioned setup within the {\bf Apparatus} subsection. We began by conducting three trials of measuring the current through the main circuit as we linearly increased our base-emitter voltage, as before, from $0\ V$ to $5\ V$. These three trials are averaged and plotted in the figure below, within the same room temperature conditions, and with slight temperature fluctuations noted as well.
+
+ \begin{center}
+ \includegraphics*[width=4in]{room_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at Room Temperature.}
+ \label{fig:room}
+ \end{center}
+
+Our main focus would be around the {\it "threshold"} voltage of around $0.3$ to $0.8\ V$, before which the current exponentially grows until a certain point before reverting to linear. We narrowed our plot to focus on that general region, with the same data from the three trials, since this region of the current plot follows the Ebers-Moll equation of current behavior:
+
+ \begin{center}
+ \includegraphics*[width=4in]{room_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at Room Temperature - Focused around Threshold Voltage.}
+ \label{fig:room_focus}
+ \end{center}
+
+We can observe a similar behavior when we raise our transistor operating temperature and repeat the same procedure. Our heater is attached to the metal base plate securing the transistor, so we connected it to a low-voltage power supply and used LabView's live temperature measurements to ensure that we replicate 3 trials of each incremental temperature at the same starting temperatures, which were around $41\degree C$, $64\degree C$ and $85\degree C$. These similar trials were recorded, focus-cropped and the plot for $85\degree C$ is selected to be demonstrative below (refer to {\it Appendix} for the entire $5\ V$ duration of $85\degree C$ and more detailed plots of all other increments):
+
+  \begin{center}
+ \includegraphics*[width=4in]{85_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at $85\degree C$ - Focused around Threshold Voltage.}
+ \label{fig:85_focus}
+ \end{center}
+
+After allowing for the transistor to return to room temperature naturally and allowing for about 15 more minutes, we continued by recording the same measurements through the same procedures, but this time utilizing liquid nitrogen to cool the transistor down below room temperature to increments of around $20\degree C$, $13\degree C$ and $-5\degree C$. These trials were again recorded, focus-cropped and the plot for $-5\degree C$ is selected to be demonstrative below (refer to {\it Appendix} for the entire $5\ V$ duration of $-5\degree C$ and more detailed plots of all other increments):
+
+ 
+ \begin{center}
+ \includegraphics*[width=4in]{-5_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at $-5\degree C$ - Focused around Threshold Voltage.}
+ \label{fig:-5_focus}
+ \end{center}
+
+We then picked out the most extreme trials of the temperatures, both hot and cold (which were $-5\degree C$ and $85\degree C$, and plotted them against the room temperature data obtained at the very beginning, to determine the effect temperature has on the threshold voltage and the time it takes to reach the {\it switch open} state, in other words, the slope of the current function before the threshold voltage.
+
+
+\begin{center}
+ \includegraphics*[width=4in]{3_temp_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at Three Temperatures - Focused around Threshold Voltage.}
+ \label{fig:3_temp_focus}
+\end{center}
+
+Our observations indicated that the lower the temperature, the higher the threshold voltage needs to be and the longer time it takes (assuming the same linear increase of base-emitter voltage across all three temperatures) before the transistor can fully reach its {\it switch open} state, meaning, the highest temperature transistor reaches the high threshold current first, and vice versa. And indeed, the saturation current $I_S$ has a directly proportional relationship with temperature, and thus as temperature rises, the saturation current is greater (and rises faster than $e^{\frac{1}{T}}$ falls), and according to the Ebers-Moll equation, the overall current increases as temperature increases, and the threshold voltage needed to reach that {\it switch open} state current of $\sim 4\ A$ increases.
+
+
+
+%=====================================================
+%============ Section ================================
+%=====================================================
+
+\section{Results}
+
+\begin{center}
+ \includegraphics*[width=4in]{all_temp_fit.png}
+ \captionof{figure}{Current Behavior due to Transistor at all Temperatures - Fitted.}
+ \label{fig:all_temp_fitted}
+\end{center}
+
+By collecting and fitting the current flow through the constantly increasing $V_{base-emitter}$ by all increments below room temperature, room temperature, and all increments above room temperature, our fit to the Ebers-Moll equation results in 21 fitted values for Boltzmann's constant that averages to about $1.580\cdot 10^{-23}$ $\pm$ $1.825\cdot 10^{-25}$ and is a $14.447\%$ error from the commonly accepted value of Boltzmann's constant of $1.380649\cdot 10^{-23}$ \cite{k}. This is approximately $13.291\%$ outside of our uncertainty bounds, and we suspect that this was due to an unreliable setup, with loose and unideal wirings, connections, and picoammeter, since our working equipment joints were loose, and occasionally the picoammeter would output way {\it 'out-of-bounds'} analog measurements to LabView.\\
+
+We also observed that saturation current $I_S$ has a directly proportional relationship with temperature. As temperature rises, the saturation current is greater, and the overall current increases as temperature increases, and the threshold voltage needed to reach that {\it switch open} state increases.
+
+
+\begin{center}
+ \includegraphics*[width=4in]{all_fit.png}
+ \captionof{figure}{All Fitted Current Behavior due to Transistor before Threshold.}
+ \label{fig:all_fit}
+\end{center}
+
+By linearizing our fits, we have found that our fits align quite well with the data at hand, and our fit efficients and results have successfully found the correct fits with minimal uncertainty of fitting within the data regions of our interest.
+
+
+\begin{center}
+ \includegraphics*[width=4in]{all_temp_fit_linearized.png}
+ \captionof{figure}{All Fitted Current Behavior due to Transistor before Threshold - Linearized.}
+ \label{fig:all_fit}
+\end{center}
+%===========================
+%============ Section ================================
+
+\section{Summary and conclusions}
+
+
+Through the use of our setup consisting of one main circuit and one {\it "priming"} circuit connected to an NPN bijunction transistor, a picoammeter for current monitoring, a small heat generator to increase the transistor's temperature, and some liquid nitrogen to decrease the transistor's temperature, we were able to determine our average value of Boltzmann's constant to be $1.580\cdot 10^{-23}$ $\pm$ $1.825\cdot 10^{-25}\ (J/K)$, a $14.447\%$ error from the commonly-used value documented by Brittanica of $1.380649\cdot 10^{-23}\ (J/K)$ \cite{k}.\\
+
+If this experiment were to be reproduced, a good consideration for even better accuracy would be to take into account the noise-level current produced by everything before the voltage from the DAQ is supplied, as there would still be somewhat of current measurement noise when using a picoammeter and operating in an electronically-condensed environment, while not having ensured that all other unrelated equipment (including desktop computers, laptops, power supplies, etc.) were grounded properly. While we did monitor and consider the noise-level current measurement before executing the increasing voltage by the DAQ, the noise level current was within the order of $10^{-5}\ nA$, and we have made the collective decision that such a noise-level current amplitude is negligible to our measurements and derivations of this experiment, and is thus ignored. In order to make the data even more accurate, we can take into account that noise and cancel the noise out with the measured current, and create more true signal measurements. \\
+
+Another note to better improve the accuracy of our measured data is to ensure that all of our setup equipment was functioning and operating reliably before conducting the experiment, since the setup was loosely connected and occasionally the picoammeter would output odd values, and it took us a significant amount of time to diagnose issues and to only get the setup to an initial operational stage.
+
+\pagebreak
+%=====================================================
+%============ Bibliography  ==========================
+%=====================================================
+
+\begin{thebibliography}{9}
+
+\bibitem{exp11} EDC-1
+{\bf NPN BJT Common Emitter Characteristics.}
+
+\bibitem{ben}
+Ben Eater, 2015, {\bf How a transistor Works.}
+
+\bibitem{diagram}
+Emma Ashley, 2021, {\bf What is NPN Transistor? Definition, types \& applications.}
+
+\bibitem{shockley}
+Ignacio Mártil, 2018, {\bf William Shockley and the Invention of the Transistor.}
+
+\bibitem{matare}
+David Laws, {\bf 1948: The European Transistor Invention}
+
+\bibitem{circuit}
+HMS UAJY, {\ bf NPN Small Transistor X5}, Figure.
+
+\bibitem{k}
+Brittanica, 2022, {\ Boltzmann Constant}.
+
+%\bibitem{article}	
+%R.Dalitz, Proc. Roy. Soc. (London) {\bf A64}, 667 (1951)
+
+\end{thebibliography}
+
+%=====================================================
+%============ End ====================================
+%=====================================================
+\appendixpage
+\section{Error Calculation}
+
+\begin{table}[h]
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$3.70\cdot 10^{-49}$ & $6.09\cdot 10^{-25}$\\
+\hline
+A	& $1.10\cdot 10^{-8}$ & $1.05\cdot 10^{-4}$ \\
+\hline
+b & $1.05\cdot 10^{9}$ & $3.24\cdot 10^{4}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for -5 Degree Fit
+ }
+
+
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$2.01\cdot 10^{-49}$ & $4.48\cdot 10^{-25}$\\
+\hline
+A	& $4.30\cdot 10^{-7}$ & $6.56\cdot 10^{-4}$ \\
+\hline
+b & $6.90\cdot 10^{8}$ & $2.63\cdot 10^{4}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for 13 Degree Fit
+ }
+
+
+
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$1.65\cdot 10^{-49}$ & $4.06\cdot 10^{-25}$\\
+\hline
+A	& $4.86\cdot 10^{-6}$ & $2.20\cdot 10^{-3}$ \\
+\hline
+b & $5.72\cdot 10^{8}$ & $2.39\cdot 10^{4}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for 20 Degree Fit
+ }
+
+
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$1.54\cdot 10^{-49}$ & $3.92\cdot 10^{-25}$\\
+\hline
+A	& $2.70\cdot 10^{-5}$ & $5.20\cdot 10^{-3}$ \\
+\hline
+b & $4.04\cdot 10^{8}$ & $2.01\cdot 10^{4}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for Room Temperature Fit
+ }
+
+
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$2.89\cdot 10^{-51}$ & $5.37\cdot 10^{-26}$\\
+\hline
+A	& $1.33\cdot 10^{-6}$ & $1.15\cdot 10^{-3}$ \\
+\hline
+b & $7.05\cdot 10^{6}$ & $2.66\cdot 10^{3}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for 41 Degree Fit
+ }
+
+
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$7.33\cdot 10^{-50}$ & $2.71\cdot 10^{-25}$\\
+\hline
+A	& $3.78\cdot 10^{-2}$ & $0.194$ \\
+\hline
+b & $1.88\cdot 10^{8}$ & $1.37\cdot 10^{4}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for 64 Degree Fit
+ }
+
+
+
+{
+{%\footnotesize
+\begin {center}
+\begin {tabular} {c | c | c }
+\hline\hline
+ & $\sigma^{2}$ & $\sigma$ \\
+\hline
+$\lambda$ &	$1.89\cdot 10^{-51}$ & $4.35\cdot 10^{-26}$\\
+\hline
+A	& $3.79\cdot 10^{-4}$ & $1.95\cdot 10^{-2}$ \\
+\hline
+b & $4.84\cdot 10^{6}$ & $2.20\cdot 10^{3}$ \\
+\hline
+\end {tabular}
+\end {center}
+}
+}
+\caption {\label{tab:error}
+Covariance Matrix for 85 Degree Fit
+ }
+\end{table}
+
+
+\begin{center}
+ \includegraphics*[width=4in]{-5_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at $-5\degree C$.}
+ \label{fig:-5}
+ \end{center}
+
+\begin{center}
+ \includegraphics*[width=4in]{13_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at $13\degree C$.}
+ \label{fig:13}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{13_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at $13\degree C$ - Focused around Threshold Voltage.}
+ \label{fig:13}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{20_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at $20\degree C$.}
+ \label{fig:20}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{20_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at $20\degree C$ - Focused around Threshold Voltage.}
+ \label{fig:20_focus}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{41_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at $41\degree C$.}
+ \label{fig:41}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{41_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at $41\degree C$ - Focused around Threshold Voltage.}
+ \label{fig:41_focus}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{64_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at $64\degree C$.}
+ \label{fig:64}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{64_tot_focus.png}
+ \captionof{figure}{Current Behavior due to Transistor at $64\degree C$ - Focused around Threshold Voltage.}
+ \label{fig:64_focus}
+ \end{center}
+
+ \begin{center}
+ \includegraphics*[width=4in]{85_tot.png}
+ \captionof{figure}{Current Behavior due to Transistor at $85\degree C$.}
+ \label{fig:85}
+ \end{center}
+
+  \begin{center}
+ \includegraphics*[width=4in]{3_temp.png}
+ \captionof{figure}{Current Behavior due to Transistor at Three Temperatures.}
+ \label{fig:3_temp}
+ \end{center}
+
+\vspace{20pt}
+
+- Average uncertainty calculation for average $k$ fit value:
+ \begin{center}
+    $\Delta k = \frac{\sigma(k)}{\sqrt{N_k}} \approxeq \frac{8.36691197500281\cdot 10^{-25}}{\sqrt{21}} \approxeq 1.8258098789753734\cdot 10^{-25}\ (J/K)$
+\end{center}
+
+\end{document}
+
+%=====================================================
+%============ End ====================================
+%=====================================================
